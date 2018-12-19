@@ -16,11 +16,11 @@ import ir.ehsanet.hashpod.kotlinmvvm.data.model.Project
 
 
 
-open abstract class BaseFragment<P : BaseViewModel> : Fragment(), IView{
+open abstract class BaseFragment<VM : BaseViewModel> : Fragment(), IView{
 
-    protected lateinit var viewModel: P
+    protected lateinit var viewModel: VM
     protected abstract var layout: Int
-    protected abstract val p: Class<P>
+    protected abstract val vmClass: Class<VM>
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         return inflater.inflate(layout, container, false)
@@ -28,7 +28,7 @@ open abstract class BaseFragment<P : BaseViewModel> : Fragment(), IView{
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProviders.of(this).get(p)
+        viewModel = ViewModelProviders.of(this).get(vmClass)
         start(savedInstanceState)
     }
 

@@ -4,12 +4,13 @@ import android.arch.lifecycle.Observer
 import android.os.Bundle
 import ir.ehsanet.hashpod.kotlinmvvm.R
 import ir.ehsanet.hashpod.kotlinmvvm.ui.base.BaseFragment
+import kotlinx.android.synthetic.main.main_fragment.*
 
 
 class MainFragment : BaseFragment<MainViewModel>() {
 
     override var layout: Int = R.layout.main_fragment
-    override val p: Class<MainViewModel> = MainViewModel::class.java
+    override val vmClass: Class<MainViewModel> = MainViewModel::class.java
 
     companion object {
         fun newInstance() = MainFragment()
@@ -24,10 +25,10 @@ class MainFragment : BaseFragment<MainViewModel>() {
         viewModel.responseLive.observe(this,
             Observer { projects ->
                 if (projects != null) {
-                    showMessage("Hello")
+                    message.text = "Hello"
                 }
                 else{
-                    showMessage("Bye")
+                    message.text = "Bye"
                 }
             })
     }
