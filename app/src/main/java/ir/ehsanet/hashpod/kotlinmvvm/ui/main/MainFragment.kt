@@ -3,6 +3,7 @@ package ir.ehsanet.hashpod.kotlinmvvm.ui.main
 import android.arch.lifecycle.Observer
 import android.os.Bundle
 import ir.ehsanet.hashpod.kotlinmvvm.R
+import ir.ehsanet.hashpod.kotlinmvvm.data.Status
 import ir.ehsanet.hashpod.kotlinmvvm.ui.base.BaseFragment
 import kotlinx.android.synthetic.main.main_fragment.*
 
@@ -23,13 +24,15 @@ class MainFragment : BaseFragment<MainViewModel>() {
     override fun start(savedInstanceState: Bundle?) {
         viewModel.start()
         viewModel.responseLive.observe(this,
-            Observer { projects ->
-                if (projects != null) {
-                    message.text = "Hello"
+            Observer { response ->
+                if (response?.status == Status.LOADING) {
+                    message.text = "LOADING"
                 }
-                else{
-                    message.text = "Bye"
+                else if(response?.status == Status.ERROR){
+                    message.text = "ERROR"
                 }
+                else if(response?.status == Status.SUCCESS)
+                    message.text = "SUCCUSSFULL"
             })
     }
 }

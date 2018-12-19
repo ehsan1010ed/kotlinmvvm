@@ -34,6 +34,14 @@ android {
     project.ext {
         dagger2_version = "2.15"
         arch = "1.1.1"
+        anko_version = "0.10.8"
+    }
+
+    kotlin {
+        experimental {
+            coroutines "enable"
+        }
+
     }
 }
 
@@ -63,5 +71,11 @@ dependencies {
     annotationProcessor "com.google.dagger:dagger-compiler:$project.dagger2_version"
     compileOnly 'javax.annotation:jsr250-api:1.0'
     implementation 'javax.inject:javax.inject:1'
+
+
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:0.22.5"
+
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:0.22.5"
+    implementation "com.jakewharton.retrofit:retrofit2-kotlin-coroutines-experimental-adapter:1.0.0"
 
 }
