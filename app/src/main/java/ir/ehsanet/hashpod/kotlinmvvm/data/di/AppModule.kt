@@ -1,5 +1,6 @@
 package ir.ehsanet.hashpod.kotlinmvvm.data.di
 
+import com.jakewharton.retrofit2.adapter.kotlin.coroutines.experimental.CoroutineCallAdapterFactory
 import dagger.Module
 import dagger.Provides
 import ir.ehsanet.hashpod.kotlinmvvm.App
@@ -18,6 +19,7 @@ class AppModule (private val app : App){
         return Retrofit.Builder()
             .baseUrl(GitHubService.HTTPS_API_GITHUB_URL)
             .addConverterFactory(GsonConverterFactory.create())
+            .addCallAdapterFactory(CoroutineCallAdapterFactory())
             .build()
     }
 
