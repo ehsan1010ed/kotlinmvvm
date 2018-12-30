@@ -1,7 +1,7 @@
 package ir.ehsanet.hashpod.kotlinmvvm.ui.main
 
-import android.arch.lifecycle.Observer
 import android.os.Bundle
+import androidx.lifecycle.Observer
 import ir.ehsanet.hashpod.kotlinmvvm.R
 import ir.ehsanet.hashpod.kotlinmvvm.data.Status
 import ir.ehsanet.hashpod.kotlinmvvm.ui.base.BaseFragment

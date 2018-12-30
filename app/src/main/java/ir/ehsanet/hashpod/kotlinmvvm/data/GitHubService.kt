@@ -1,9 +1,8 @@
 package ir.ehsanet.hashpod.kotlinmvvm.data
 
 import ir.ehsanet.hashpod.kotlinmvvm.data.model.Project
-import kotlinx.coroutines.experimental.Deferred
+import kotlinx.coroutines.Deferred
 import retrofit2.Call
-import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Path
 
@@ -14,7 +13,7 @@ interface GitHubService {
     }
 
     @GET("users/{user}/repos")
-    fun getProjectList(@Path("user") user: String): Deferred<Response<List<Project>>>
+    fun getProjectList(@Path("user") user: String): Deferred<List<Project>>
 
     @GET("/repos/{user}/{reponame}")
     fun getProjectDetails(@Path("user") user: String, @Path("reponame") projectName: String): Call<Project>

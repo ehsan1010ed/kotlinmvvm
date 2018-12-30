@@ -1,12 +1,11 @@
 package ir.ehsanet.hashpod.kotlinmvvm.ui.base
 
-import android.support.v4.app.FragmentActivity
-import android.support.v7.app.AppCompatActivity
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import ir.ehsanet.hashpod.kotlinmvvm.R
 import ir.ehsanet.hashpod.kotlinmvvm.ui.main.MainFragment
 
-abstract class BaseActivity : FragmentActivity(),IView {
+abstract class BaseActivity : AppCompatActivity(),IView {
 
     override fun showMessage(message: String) {
         Toast.makeText(this,message,Toast.LENGTH_LONG).show()

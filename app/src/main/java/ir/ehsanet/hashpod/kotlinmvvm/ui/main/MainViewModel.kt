@@ -1,6 +1,6 @@
 package ir.ehsanet.hashpod.kotlinmvvm.ui.main
 
-import android.arch.lifecycle.MutableLiveData
+import androidx.lifecycle.MutableLiveData
 import ir.ehsanet.hashpod.kotlinmvvm.App
 import ir.ehsanet.hashpod.kotlinmvvm.data.Resource
 import ir.ehsanet.hashpod.kotlinmvvm.data.model.Project

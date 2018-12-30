@@ -1,6 +1,5 @@
 package ir.ehsanet.hashpod.kotlinmvvm
 
-import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import ir.ehsanet.hashpod.kotlinmvvm.ui.base.BaseActivity
 import ir.ehsanet.hashpod.kotlinmvvm.ui.main.MainFragment

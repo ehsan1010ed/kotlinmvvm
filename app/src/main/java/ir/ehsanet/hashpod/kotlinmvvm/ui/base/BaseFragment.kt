@@ -1,22 +1,15 @@
 package ir.ehsanet.hashpod.kotlinmvvm.ui.base
-
-import android.arch.lifecycle.Observer
-import android.arch.lifecycle.ViewModel
-import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
-import android.support.annotation.Nullable
-import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import ir.ehsanet.hashpod.kotlinmvvm.R
-import ir.ehsanet.hashpod.kotlinmvvm.ui.main.MainViewModel
-import ir.ehsanet.hashpod.kotlinmvvm.data.model.Project
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProviders
 
 
 
-open abstract class BaseFragment<VM : BaseViewModel> : Fragment(), IView{
+public abstract class BaseFragment<VM : BaseViewModel> : Fragment(), IView{
 
     protected lateinit var viewModel: VM
     protected abstract var layout: Int
