@@ -1,17 +1,17 @@
 package ir.ehsanet.hashpod.kotlinmvvm.data.rpo
 
-import ir.ehsanet.hashpod.kotlinmvvm.data.GitHubService
+import ir.ehsanet.hashpod.kotlinmvvm.data.GithubApi
 import ir.ehsanet.hashpod.kotlinmvvm.data.model.Project
 import kotlinx.coroutines.Deferred
-import retrofit2.Retrofit
+import retrofit2.Response
 
-class ProjectsListRepository(retrofit: Retrofit) : BaseRepository<Void, List<Project>>(retrofit) {
+class ProjectsListRepository(val githubApi : GithubApi) : BaseRepository<Void, List<Project>>() {
 
-    override fun buildCall(vararg path: String): Deferred<List<Project>> {
-        return retrofit.create(GitHubService::class.java).getProjectList(path[0])
+    override fun buildApiCall(vararg path: String): Deferred<Response<List<Project>>> {
+        return githubApi.getProjectList(path[0])
     }
 
-    private inline fun <reified T> createApi(retrofit: Retrofit) = retrofit.create(T::class.java)
+    override fun buildDbCall(vararg path: String) {
 
-
+    }
 }

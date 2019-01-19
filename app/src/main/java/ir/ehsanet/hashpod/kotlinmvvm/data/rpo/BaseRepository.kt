@@ -4,47 +4,29 @@ import androidx.lifecycle.MutableLiveData
 import ir.ehsanet.hashpod.kotlinmvvm.data.Resource
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Deferred
-import retrofit2.Call
-import retrofit2.Callback
+import kotlinx.coroutines.Dispatchers.Main
+import kotlinx.coroutines.async
+import kotlinx.coroutines.launch
 import retrofit2.Response
 import retrofit2.Retrofit
-import kotlinx.coroutines.launch
 
 
+abstract class BaseRepository<RQ, RS> : CoroutineScope {
 
-abstract class BaseRepository<RQ,RS> (protected val retrofit : Retrofit) : CoroutineScope{
+    override val coroutineContext = Main
 
-//    fun call(responseLive: MutableLiveData<Resource<RS>>, vararg path : String){
- //       responseLive.value = Resource.loading(null)
-//        buildCall(*path).enqueue(object : Callback<RS> {
-//            override fun onFailure(call: Call<RS>, t: Throwable) {
-//                responseLive.value = Resource.error("",null)
-//            }
-//
-//            override fun onResponse(call: Call<RS>, response: Response<RS>) {
-//                if(response.isSuccessful){
-//                    responseLive.value = Resource.success(response.body())
-//                }
-//                else{
-//                    responseLive.value = Resource.error("",null)
-//                }
-//            }
-//        })
- //   }
-
-    fun call(responseLive: MutableLiveData<Resource<RS>>, vararg path : String){
-        responseLive.value = Resource.loading(null)
-        var client = buildCall(*path)
+    fun call(liveData: MutableLiveData<Resource<RS>>, vararg path: String) {
+        liveData.value = Resource.loading(null)
+        var client = buildApiCall(*path)
         launch {
-            val x = client.await()
-            if(x){
-                responseLive.value = Resource.success(x.body())
-            }
+            val x = async { client.getCompleted() }.await()
+            if (x.isSuccessful)
+                liveData.value = Resource.success(x.body())
             else
-                responseLive.value = Resource.error("" , null)
-
+                liveData.value = Resource.error("", null)
         }
     }
 
-    abstract fun buildCall(vararg path : String): Deferred<RS>
+    abstract fun buildApiCall(vararg path: String): Deferred<Response<RS>>
+    abstract fun buildDbCall(vararg path : String): Unit
 }

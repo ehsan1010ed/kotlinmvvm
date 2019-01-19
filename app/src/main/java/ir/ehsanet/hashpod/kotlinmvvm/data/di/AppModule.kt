@@ -4,7 +4,8 @@ import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterF
 import dagger.Module
 import dagger.Provides
 import ir.ehsanet.hashpod.kotlinmvvm.App
-import ir.ehsanet.hashpod.kotlinmvvm.data.GitHubService
+import ir.ehsanet.hashpod.kotlinmvvm.data.AppDatabase
+import ir.ehsanet.hashpod.kotlinmvvm.data.GithubApi
 import ir.ehsanet.hashpod.kotlinmvvm.data.rpo.ProjectsListRepository
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -17,14 +18,26 @@ class AppModule (private val app : App){
     @Singleton
     fun retrofit(): Retrofit {
         return Retrofit.Builder()
-            .baseUrl(GitHubService.HTTPS_API_GITHUB_URL)
+            .baseUrl(GithubApi.HTTPS_API_GITHUB_URL)
             .addConverterFactory(GsonConverterFactory.create())
             .addCallAdapterFactory(CoroutineCallAdapterFactory())
             .build()
     }
 
     @Provides
-    fun projectsRepo(retroft : Retrofit) : ProjectsListRepository {
-        return ProjectsListRepository(retroft)
+    @Singleton
+    fun gitHubApi(retrofit : Retrofit) : GithubApi{
+        return retrofit.create(GithubApi::class.java)
+    }
+
+    @Provides
+    @Singleton
+    fun database() : AppDatabase? {
+        return AppDatabase.INSTANCE
+    }
+
+    @Provides
+    fun projectsRepo(githubApi : GithubApi) : ProjectsListRepository {
+        return ProjectsListRepository(githubApi)
     }
 }
